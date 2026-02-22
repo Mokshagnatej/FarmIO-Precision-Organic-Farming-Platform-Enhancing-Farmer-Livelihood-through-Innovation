@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmIO - Precision & Organic Farming Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #2C3E50;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.6rem; font-weight: bold; color: #4ECDC4; }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        nav button:hover {
+            background: #4ECDC4;
+        }
+
+        nav button.active {
+            background: #4ECDC4;
+            font-weight: bold;
+        }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .hero {
+            background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 10px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        section { padding: 60px 20px; }
+        section h2 { text-align: center; font-size: 2rem; margin-bottom: 40px; color: #2C3E50; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(78,205,196,0.2);
+        }
+
+        .card h3 { color: #2C3E50; margin-bottom: 12px; }
+        .card p { color: #666; font-size: 0.95rem; }
+
+        .metrics-section { background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%); color: white; }
+        .metrics-section h2 { color: white; }
+
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+        .metric { background: rgba(255,255,255,0.1); padding: 25px; border-radius: 8px; text-align: center; }
+        .metric h3 { font-size: 2.2rem; margin-bottom: 8px; }
+
+        .white-section { background: white; }
+
+        form { max-width: 500px; margin: 0 auto; }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #DDD; border-radius: 4px; font-family: inherit; }
+        input:focus, textarea:focus { outline: none; border-color: #4ECDC4; box-shadow: 0 0 5px rgba(78,205,196,0.3); }
+        textarea { resize: vertical; }
+
+        .btn {
+            background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover { transform: translateY(-2px); }
+
+        .faq-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #E0E0E0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-item h4 { color: #2C3E50; margin-bottom: 10px; cursor: pointer; }
+        .faq-item p { color: #666; font-size: 0.95rem; }
+
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #DDD; }
+        th { background: #F8F9FA; font-weight: 600; color: #2C3E50; }
+
+        footer { background: #2C3E50; color: white; text-align: center; padding: 30px 20px; }
+
+        .image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: 280px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .image-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(78,205,196,0.3);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .image-card:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        .image-overlay h4 { margin-bottom: 5px; }
+        .image-overlay p { font-size: 0.9rem; opacity: 0.9; }
+
+        .feature-image-section {
+            margin: 40px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            nav ul { gap: 10px; }
+            .grid { grid-template-columns: 1fr; }
+            nav button { padding: 6px 10px; font-size: 0.9rem; }
+            .image-card { height: 200px; }
+            .feature-image-section { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">🌾 FarmIO</div>
+            <ul>
+                <li><button class="nav-btn active" data-page="home">Home</button></li>
+                <li><button class="nav-btn" data-page="about">About</button></li>
+                <li><button class="nav-btn" data-page="technology">Technology</button></li>
+                <li><button class="nav-btn" data-page="dashboard">Dashboard</button></li>
+                <li><button class="nav-btn" data-page="gallery">Gallery</button></li>
+                <li><button class="nav-btn" data-page="contact">Contact</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <h1>🌾 FarmIO</h1>
+                <p>Precision & Organic Farming Platform</p>
+                <p style="font-size: 1.05rem; opacity: 0.95;">Enhancing Farmer Livelihood through Innovation</p>
+            </div>
+        </section>
+
+        <section class="white-section">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="feature-image-section" style="margin-bottom: 40px;">
+                    <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=400&fit=crop" alt="Smart Farming Technology">
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3>📊 Real-time Monitoring</h3>
+                        <p>IoT sensors track soil moisture, temperature, and humidity 24/7</p>
+                    </div>
+                    <div class="card">
+                        <h3>💧 Automated Irrigation</h3>
+                        <p>Smart systems optimize water, reducing consumption by 40%</p>
+                    </div>
+                    <div class="card">
+                        <h3>🌱 Organic Integration</h3>
+                        <p>Precision farming combined with sustainable practices</p>
+                    </div>
+                    <div class="card">
+                        <h3>📈 Yield Improvement</h3>
+                        <p>Expected 25-30% increase in agricultural production</p>
+                    </div>
+                    <div class="card">
+                        <h3>💰 Cost Reduction</h3>
+                        <p>Reduce input costs by 40-50% through efficiency</p>
+                    </div>
+                    <div class="card">
+                        <h3>🔒 Livelihood Security</h3>
+                        <p>Enhanced income stability for farming communities</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="metrics-section">
+            <div class="container">
+                <h2>Project Impact</h2>
+                <div class="metric-grid">
+                    <div class="metric">
+                        <h3>40%</h3>
+                        <p>Water Savings</p>
+                    </div>
+                    <div class="metric">
+                        <h3>42%</h3>
+                        <p>Cost Reduction</p>
+                    </div>
+                    <div class="metric">
+                        <h3>28%</h3>
+                        <p>Yield Improvement</p>
+                    </div>
+                    <div class="metric">
+                        <h3>78%</h3>
+                        <p>Soil Health Score</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);">
+            <div class="container">
+                <h1>About the Project</h1>
+                <p>Enhancing Farmer Livelihood</p>
+            </div>
+        </section>
+
+        <section class="white-section">
+            <div class="container">
+                <h2>Project Overview</h2>
+                <div class="feature-image-section" style="margin-bottom: 40px;">
+                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=1200&h=400&fit=crop" alt="Precision Agriculture">
+                </div>
+                <div style="background: #F8F9FA; padding: 30px; border-radius: 8px; border-left: 4px solid #4ECDC4;">
+                    <h3 style="color: #2C3E50; margin-bottom: 15px;">Abstract</h3>
+                    <p style="color: #555;">The project addresses high input costs, soil degradation, and low farmer income. It promotes precision farming tools combined with organic practices, delivering improved soil health, reduced costs, higher yields, and enhanced livelihoods.</p>
+                </div>
+
+                <h2 style="margin-top: 40px;">Project Scope</h2>
+                <div class="feature-image-section" style="margin-bottom: 40px;">
+                    <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=1200&h=400&fit=crop" alt="IoT Agriculture Sensors">
+                </div>
+                <div class="grid" style="margin-top: 20px;">
+                    <div class="card">
+                        <h3>🔌 IoT Sensors</h3>
+                        <p>Real-time soil, temperature, and humidity monitoring</p>
+                    </div>
+                    <div class="card">
+                        <h3>💧 Automated Irrigation</h3>
+                        <p>Smart systems optimizing water usage</p>
+                    </div>
+                    <div class="card">
+                        <h3>🌿 Organic Methods</h3>
+                        <p>Sustainable farming practices</p>
+                    </div>
+                    <div class="card">
+                        <h3>📱 Data Platform</h3>
+                        <p>Web-based visualization and management</p>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 40px;">Expected Outcomes</h2>
+                <div class="grid" style="margin-top: 20px;">
+                    <div class="card">
+                        <h3>🌱 Improved Soil Health</h3>
+                        <p>Enhanced quality through organic practices</p>
+                    </div>
+                    <div class="card">
+                        <h3>💰 Cost Reduction 40-50%</h3>
+                        <p>Optimized resource management</p>
+                    </div>
+                    <div class="card">
+                        <h3>📈 Yield Improvement 25-30%</h3>
+                        <p>Higher production quality and quantity</p>
+                    </div>
+                    <div class="card">
+                        <h3>👨‍🌾 Enhanced Livelihoods</h3>
+                        <p>Income stability and food security</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- TECHNOLOGY PAGE -->
+    <div id="technology" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);">
+            <div class="container">
+                <h1>Technology Stack</h1>
+                <p>IoT-Based Infrastructure</p>
+            </div>
+        </section>
+
+        <section class="white-section">
+            <div class="container">
+                <h2>IoT Components</h2>
+                <div class="feature-image-section" style="margin-bottom: 40px;">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&h=400&fit=crop" alt="IoT Sensor Technology">
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3>💧 Soil Moisture</h3>
+                        <p><strong>Range:</strong> 0-100%<br><strong>Accuracy:</strong> ±3%</p>
+                    </div>
+                    <div class="card">
+                        <h3>🌡️ Temperature</h3>
+                        <p><strong>Range:</strong> -40°C to +80°C<br><strong>Accuracy:</strong> ±0.5°C</p>
+                    </div>
+                    <div class="card">
+                        <h3>💨 Humidity</h3>
+                        <p><strong>Range:</strong> 0-100%<br><strong>Accuracy:</strong> ±2%</p>
+                    </div>
+                    <div class="card">
+                        <h3>🚿 Water Flow</h3>
+                        <p><strong>Range:</strong> 0-500 L/min<br><strong>Accuracy:</strong> ±2 L/min</p>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 40px;">System Benefits</h2>
+                <div class="feature-image-section" style="margin-bottom: 40px;">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=400&fit=crop" alt="Sustainable Farming Benefits">
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <h3>💧 Water Optimization</h3>
+                        <p>35-40% reduction in water usage through smart irrigation</p>
+                    </div>
+                    <div class="card">
+                        <h3>💰 Cost Efficiency</h3>
+                        <p>Lower chemical and input costs with precision farming</p>
+                    </div>
+                    <div class="card">
+                        <h3>📈 Yield Increase</h3>
+                        <p>25-30% production improvement through optimization</p>
+                    </div>
+                    <div class="card">
+                        <h3>🌍 Environment</h3>
+                        <p>Sustainable and eco-friendly farming practices</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div id="dashboard" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);">
+            <div class="container">
+                <h1>Farm Dashboard</h1>
+                <p>Real-Time Monitoring</p>
+            </div>
+        </section>
+
+        <section class="white-section">
+            <div class="container">
+                <h2>Key Metrics</h2>
+                <div class="feature-image-section" style="margin-bottom: 40px;">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=400&fit=crop" alt="Farm Dashboard Analytics">
+                </div>
+                <div class="metric-grid" style="color: #2C3E50;">
+                    <div class="metric" style="background: white; border: 1px solid #E0E0E0;">
+                        <h3 style="color: #4ECDC4;">50</h3>
+                        <p style="color: #666;">Farm Size (acres)</p>
+                    </div>
+                    <div class="metric" style="background: white; border: 1px solid #E0E0E0;">
+                        <h3 style="color: #4ECDC4;">6</h3>
+                        <p style="color: #666;">Active Sensors</p>
+                    </div>
+                    <div class="metric" style="background: white; border: 1px solid #E0E0E0;">
+                        <h3 style="color: #4ECDC4;">35%</h3>
+                        <p style="color: #666;">Water Savings</p>
+                    </div>
+                    <div class="metric" style="background: white; border: 1px solid #E0E0E0;">
+                        <h3 style="color: #4ECDC4;">78%</h3>
+                        <p style="color: #666;">Soil Health</p>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 40px;">Sensor Data</h2>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th>Sensor</th>
+                            <th>Value</th>
+                            <th>Status</th>
+                            <th>Location</th>
+                        </tr>
+                        <tr>
+                            <td>Soil Moisture</td>
+                            <td>65%</td>
+                            <td style="color: #27AE60;">✓ Optimal</td>
+                            <td>Field A</td>
+                        </tr>
+                        <tr>
+                            <td>Temperature</td>
+                            <td>28.5°C</td>
+                            <td style="color: #27AE60;">✓ Optimal</td>
+                            <td>Field A</td>
+                        </tr>
+                        <tr>
+                            <td>Humidity</td>
+                            <td>72%</td>
+                            <td style="color: #27AE60;">✓ Optimal</td>
+                            <td>Field A</td>
+                        </tr>
+                        <tr>
+                            <td>Soil Moisture</td>
+                            <td>48%</td>
+                            <td style="color: #E67E22;">⚠ Low</td>
+                            <td>Field B</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h2 style="margin-top: 40px;">Recommendations</h2>
+                <div class="faq-item" style="border: 1px solid #E74C3C; padding: 15px; background: #FFF5F5; border-radius: 6px;">
+                    <h4 style="color: #E74C3C;">⚠️ High Priority</h4>
+                    <p>Field B soil moisture is low. Activate irrigation system within 2 hours.</p>
+                </div>
+                <div class="faq-item" style="border: 1px solid #E67E22; padding: 15px; background: #FFFAF0; border-radius: 6px;">
+                    <h4 style="color: #E67E22;">ℹ️ Medium Priority</h4>
+                    <p>Temperature forecast shows 35°C. Consider shade cloth deployment.</p>
+                </div>
+                <div class="faq-item" style="border: 1px solid #27AE60; padding: 15px; background: #F0FFF4; border-radius: 6px;">
+                    <h4 style="color: #27AE60;">✓ Low Priority</h4>
+                    <p>Nitrogen levels adequate for next 5 days. Schedule fertilizer application for day 6.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- GALLERY PAGE -->
+    <div id="gallery" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);">
+            <div class="container">
+                <h1>Project Gallery</h1>
+                <p>Precision Farming in Action</p>
+            </div>
+        </section>
+
+        <section class="white-section">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                <div class="grid" style="margin-top: 40px;">
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=280&fit=crop" alt="Precision Irrigation">
+                        <div class="image-overlay">
+                            <h4>🌾 Precision Irrigation</h4>
+                            <p>Modern IoT-based irrigation optimizing water usage with real-time monitoring</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad576?w=600&h=280&fit=crop" alt="Organic Farming">
+                        <div class="image-overlay">
+                            <h4>🌱 Organic Farming</h4>
+                            <p>Sustainable cultivation techniques promoting soil health and biodiversity</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=280&fit=crop" alt="Sensor Networks">
+                        <div class="image-overlay">
+                            <h4>📡 Sensor Networks</h4>
+                            <p>Advanced IoT sensors monitoring soil conditions continuously 24/7</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=600&h=280&fit=crop" alt="Sustainability">
+                        <div class="image-overlay">
+                            <h4>💚 Sustainability</h4>
+                            <p>Green farming practices for environmental conservation and protection</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=280&fit=crop" alt="Analytics">
+                        <div class="image-overlay">
+                            <h4>📊 Analytics</h4>
+                            <p>Real-time data visualization platform for farm management decisions</p>
+                        </div>
+                    </div>
+                    <div class="image-card">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=280&fit=crop" alt="Empowerment">
+                        <div class="image-overlay">
+                            <h4>👨‍🌾 Empowerment</h4>
+                            <p>Technology and training programs for farmer skill development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <section class="hero" style="background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>Get in Touch</p>
+            </div>
+        </section>
+
+        <section class="white-section">
+            <div class="container">
+                <h2>Send Message</h2>
+                <form onsubmit="event.preventDefault(); alert('Thank you! We will contact you soon.'); this.reset();">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="text" placeholder="Subject">
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+
+                <h2 style="margin-top: 40px;">Contact Info</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>📍 Address</h3>
+                        <p>Agricultural Innovation Hub</p>
+                    </div>
+                    <div class="card">
+                        <h3>📞 Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="card">
+                        <h3>✉️ Email</h3>
+                        <p>info@farmio.com</p>
+                    </div>
+                </div>
+
+                <h2 style="margin-top: 40px;">FAQ</h2>
+                <div class="faq-item">
+                    <h4>How does FarmIO reduce costs?</h4>
+                    <p>By optimizing water and chemical usage, reducing input costs by up to 40% while improving yields.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Suitable for small farms?</h4>
+                    <p>Yes! Scalable and cost-effective for small and medium-scale farmers.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Installation time?</h4>
+                    <p>Professional installation and training takes 1-2 days per farm.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Support available?</h4>
+                    <p>24/7 technical support, maintenance, and farmer training programs included.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Existing equipment compatibility?</h4>
+                    <p>Yes, works with existing farm infrastructure and customizable to your needs.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Expected ROI timeline?</h4>
+                    <p>Most farmers see positive ROI within 18-24 months through cost savings and yields.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>🌾 FarmIO - Precision & Organic Farming Platform</p>
+            <p>✅ Production Ready | Version 1.0.0 | February 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        // Fast page navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                const pageId = e.target.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                window.scrollTo(0, 0);
+            });
+        });
+    </script>
+</body>
+</html>

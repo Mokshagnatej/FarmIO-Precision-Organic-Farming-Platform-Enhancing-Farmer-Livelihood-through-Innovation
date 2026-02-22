@@ -1,0 +1,379 @@
+/* Dashboard.css */
+.dashboard {
+  width: 100%;
+  background: #f8f9fa;
+  padding-bottom: 50px;
+}
+
+.dashboard-header {
+  background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.dashboard-header h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.dashboard-header .subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
+.metrics-section,
+.sensors-section,
+.chart-section,
+.irrigation-section,
+.status-section,
+.recommendations-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.metrics-section h2,
+.sensors-section h2,
+.chart-section h2,
+.irrigation-section h2,
+.status-section h2,
+.recommendations-section h2 {
+  font-size: 2rem;
+  color: #2C3E50;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #4ECDC4;
+  padding-bottom: 15px;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.metric-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-top: 4px solid #4ECDC4;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(78, 205, 196, 0.2);
+}
+
+.metric-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.metric-card h3 {
+  color: #2C3E50;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #4ECDC4;
+}
+
+/* Sensors Grid */
+.sensors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.sensor-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-left: 5px solid #4ECDC4;
+}
+
+.sensor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(78, 205, 196, 0.2);
+}
+
+.sensor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 15px;
+}
+
+.sensor-card h3 {
+  color: #2C3E50;
+  font-size: 1.1rem;
+  margin: 0;
+  flex: 1;
+}
+
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.sensor-value {
+  margin-bottom: 15px;
+}
+
+.value {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #4ECDC4;
+}
+
+.unit {
+  font-size: 1.1rem;
+  color: #999;
+  margin-left: 5px;
+}
+
+.sensor-location {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* Chart Section */
+.chart-section {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.chart-selector {
+  margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.chart-selector label {
+  font-weight: 600;
+  color: #2C3E50;
+}
+
+.chart-selector select {
+  padding: 10px 15px;
+  border: 2px solid #4ECDC4;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: white;
+  color: #2C3E50;
+}
+
+.chart-selector select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+}
+
+.chart-container {
+  position: relative;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+/* Irrigation Section */
+.irrigation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.irrigation-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-top: 4px solid #45B7D1;
+}
+
+.irrigation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(69, 183, 209, 0.2);
+}
+
+.irrigation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.irrigation-card h3 {
+  color: #2C3E50;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.status-badge.active {
+  background: #27AE60;
+}
+
+.status-badge.inactive {
+  background: #95A5A6;
+}
+
+.irrigation-info {
+  margin-bottom: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row .label {
+  color: #999;
+  font-weight: 600;
+}
+
+.info-row .value {
+  color: #2C3E50;
+  font-weight: 600;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #E8E8E8;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #45B7D1 0%, #4ECDC4 100%);
+  transition: width 0.3s ease;
+}
+
+/* Status Section */
+.status-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.status-item {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #27AE60;
+}
+
+.status-item h4 {
+  color: #2C3E50;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.status-item p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Recommendations */
+.recommendations-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.recommendation {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #E74C3C;
+}
+
+.recommendation p {
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.priority-high {
+  color: white;
+  background: #E74C3C;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.priority-medium {
+  color: white;
+  background: #E67E22;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.priority-low {
+  color: white;
+  background: #27AE60;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .metrics-grid,
+  .sensors-grid,
+  .irrigation-grid,
+  .status-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-container {
+    height: 300px;
+  }
+
+  .chart-selector {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

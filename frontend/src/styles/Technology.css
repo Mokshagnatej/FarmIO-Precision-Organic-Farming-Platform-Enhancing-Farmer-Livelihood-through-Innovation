@@ -1,0 +1,368 @@
+/* Technology.css */
+.technology {
+  width: 100%;
+  background: #f8f9fa;
+}
+
+.tech-header {
+  background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.tech-header h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.tech-header .subtitle {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
+.tab-buttons {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 12px 25px;
+  border: 2px solid #4ECDC4;
+  background: white;
+  color: #4ECDC4;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background: #4ECDC4;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: #4ECDC4;
+  color: white;
+  box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+}
+
+.tech-section {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+.tech-section h2 {
+  font-size: 2.2rem;
+  color: #2C3E50;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #4ECDC4;
+  padding-bottom: 15px;
+}
+
+.tech-section h3 {
+  font-size: 1.5rem;
+  color: #2C3E50;
+  margin-bottom: 25px;
+  margin-top: 40px;
+}
+
+.section-intro {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.component-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-top: 4px solid #4ECDC4;
+}
+
+.component-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(78, 205, 196, 0.2);
+}
+
+.component-icon {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.component-card h3 {
+  color: #2C3E50;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  border: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.component-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Specifications Table */
+.specs-table {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.specs-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.specs-table thead {
+  background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+  color: white;
+}
+
+.specs-table th,
+.specs-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.specs-table tbody tr:hover {
+  background: #F8F9FA;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.benefit-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(78, 205, 196, 0.15);
+}
+
+.benefit-number {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+  color: #2C3E50;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  border: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.benefit-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Comparison Table */
+.impact-comparison {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  margin-top: 40px;
+}
+
+.comparison-table {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-top: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.comparison-row {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.comparison-item {
+  flex: 1;
+  min-width: 250px;
+}
+
+.comparison-item h4 {
+  color: #2C3E50;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.comparison-item ul {
+  list-style: none;
+}
+
+.comparison-item li {
+  padding: 10px 0;
+  padding-left: 30px;
+  position: relative;
+  color: #666;
+}
+
+.comparison-item li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #27AE60;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.comparison-arrow {
+  font-size: 2rem;
+  color: #4ECDC4;
+  font-weight: bold;
+}
+
+/* Architecture Diagram */
+.architecture-diagram {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  margin: 40px 0;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.arch-svg {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.layer {
+  font-family: Arial, sans-serif;
+}
+
+.layer text {
+  font-weight: 600;
+}
+
+/* Architecture Details */
+.architecture-details {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+.process-list {
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.process-list li {
+  counter-increment: step-counter;
+  padding: 20px;
+  padding-left: 60px;
+  position: relative;
+  margin-bottom: 20px;
+  background: #F8F9FA;
+  border-radius: 8px;
+  border-left: 4px solid #4ECDC4;
+}
+
+.process-list li:before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, #4ECDC4 0%, #45B7D1 100%);
+  color: white;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.process-list strong {
+  color: #2C3E50;
+  display: block;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .tech-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .tab-buttons {
+    flex-direction: column;
+  }
+
+  .tab-btn {
+    width: 100%;
+  }
+
+  .components-grid,
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-row {
+    gap: 20px;
+  }
+
+  .comparison-arrow {
+    transform: rotate(90deg);
+  }
+}
+
