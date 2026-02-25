@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmIO - Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .launcher-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 72px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .status {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .status-text {
+            color: #34495e;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 30px;
+            text-align: left;
+            border-radius: 5px;
+        }
+
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .instructions li {
+            margin: 5px 0;
+        }
+
+        .instructions code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .error {
+            display: none;
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            border-radius: 5px;
+            color: #721c24;
+        }
+
+        .success {
+            display: none;
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            border-radius: 5px;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="launcher-container">
+        <div class="logo">🌱</div>
+        <h1>FarmIO</h1>
+        <p class="subtitle">Precision & Organic Farming Platform</p>
+
+        <div class="status" id="status">
+            <p class="status-text" id="statusText">Checking server status...</p>
+            <div class="loading" id="loading"></div>
+        </div>
+
+        <div id="buttons" style="display: none;">
+            <a href="http://localhost:5173" target="_blank" class="btn" id="launchBtn">
+                🚀 Launch Application
+            </a>
+            <br>
+            <button class="btn btn-secondary" onclick="checkStatus()">
+                🔄 Refresh Status
+            </button>
+        </div>
+
+        <div class="success" id="success">
+            <strong>✓ Server is running!</strong><br>
+            Click the "Launch Application" button above to open FarmIO.
+        </div>
+
+        <div class="error" id="error">
+            <strong>⚠ Server not detected</strong><br>
+            Please start the development server first.
+        </div>
+
+        <div class="instructions">
+            <h3>📋 How to Start the Server:</h3>
+            <ol>
+                <li>Open Terminal in the project folder</li>
+                <li>Run: <code>npm run dev</code></li>
+                <li>Wait for server to start (shows: "Local: http://localhost:5173")</li>
+                <li>Refresh this page or click "Launch Application"</li>
+            </ol>
+            <p style="margin-top: 10px;"><strong>Alternative ports:</strong> If 5173 is busy, try 5174, 5175, or check terminal output for the actual port.</p>
+        </div>
+    </div>
+
+    <script>
+        const ports = [5173, 5174, 5175, 5176, 5050];
+        let workingPort = null;
+
+        async function checkPort(port) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+                const response = await fetch(`http://localhost:${port}`, {
+                    method: 'HEAD',
+                    signal: controller.signal,
+                    mode: 'no-cors'
+                });
+
+                clearTimeout(timeoutId);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        async function checkStatus() {
+            document.getElementById('status').style.display = 'block';
+            document.getElementById('loading').style.display = 'inline-block';
+            document.getElementById('buttons').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('statusText').textContent = 'Checking server status...';
+
+            workingPort = null;
+
+            for (const port of ports) {
+                document.getElementById('statusText').textContent = `Checking port ${port}...`;
+                const isRunning = await checkPort(port);
+                if (isRunning) {
+                    workingPort = port;
+                    break;
+                }
+            }
+
+            document.getElementById('loading').style.display = 'none';
+
+            if (workingPort) {
+                document.getElementById('statusText').textContent = `Server found on port ${workingPort}!`;
+                document.getElementById('launchBtn').href = `http://localhost:${workingPort}`;
+                document.getElementById('buttons').style.display = 'block';
+                document.getElementById('success').style.display = 'block';
+            } else {
+                document.getElementById('statusText').textContent = 'Server not running';
+                document.getElementById('error').style.display = 'block';
+
+                // Show start button
+                document.getElementById('buttons').style.display = 'block';
+                document.getElementById('buttons').innerHTML = `
+                    <button class="btn btn-secondary" onclick="checkStatus()">
+                        🔄 Refresh Status
+                    </button>
+                `;
+            }
+        }
+
+        // Auto-check on load
+        window.addEventListener('load', () => {
+            setTimeout(checkStatus, 500);
+        });
+
+        // Auto-refresh every 5 seconds
+        setInterval(() => {
+            if (!workingPort) {
+                checkStatus();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmIO - Precision & Organic Farming Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(76, 175, 80, 0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%234CAF50" width="1200" height="600"/><path fill="%232E7D32" opacity="0.3" d="M0 300 Q300 200 600 300 T1200 300 V600 H0Z"/></svg>');
+            background-size: cover;
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            margin: 0.5rem;
+            background: white;
+            color: #2E7D32;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section:nth-child(even) {
+            background: #f5f5f5;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #2E7D32;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Dashboard Preview */
+        .dashboard-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2E7D32;
+            margin: 1rem 0;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1B5E20;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Status Banner */
+        .status-banner {
+            background: #FFF3CD;
+            border-left: 4px solid #FFC107;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #856404;
+        }
+
+        .status-banner strong {
+            color: #2E7D32;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-banner">
+        ⚠️ <strong>Standalone Version</strong> - For full interactive features, please run: <code>npm run dev</code> in terminal
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#home">🏠 Home</a></li>
+            <li><a href="#about">📖 About</a></li>
+            <li><a href="#technology">💡 Technology</a></li>
+            <li><a href="#dashboard">📊 Dashboard</a></li>
+            <li><a href="#gallery">🖼️ Gallery</a></li>
+            <li><a href="#contact">📞 Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>🌱 FarmIO</h1>
+        <p>Enhancing Farmer Livelihood through Precision and Organic Farming</p>
+        <a href="#about" class="btn">Learn More</a>
+        <a href="#dashboard" class="btn">View Dashboard</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2>About the Project</h2>
+        <p>
+            The FarmIO project addresses high input costs, soil degradation, and low farmer income caused by excessive chemical use.
+            It promotes a combination of precision farming tools and organic practices through demonstrations and basic monitoring.
+        </p>
+        <p>
+            The expected outcomes include improved soil health, reduced production costs, higher yields, and enhanced farmer
+            livelihoods through sustainable agriculture practices.
+        </p>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🌿</div>
+                <h3>Organic Farming</h3>
+                <p>Reduce chemical dependency and improve soil health naturally</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📡</div>
+                <h3>IoT Sensors</h3>
+                <p>Real-time monitoring of soil moisture, temperature, and humidity</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💧</div>
+                <h3>Smart Irrigation</h3>
+                <p>Automated water management for optimal resource usage</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Data Analytics</h3>
+                <p>AI-powered insights for better farming decisions</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Cost Reduction</h3>
+                <p>Lower input costs through precision techniques</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌾</div>
+                <h3>Higher Yields</h3>
+                <p>Increase productivity with sustainable methods</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="section">
+        <h2>Technology Stack</h2>
+        <p>
+            The scope involves designing and implementing an IoT-based infrastructure to support precision and organic farming practices.
+            It includes deploying sensors for real-time monitoring, automated irrigation systems, and a web-based platform for data
+            visualization and management.
+        </p>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>IoT Infrastructure</h3>
+                <p>ESP32/Arduino-based sensor networks for field monitoring</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☁️</div>
+                <h3>Cloud Platform</h3>
+                <p>Secure data storage and processing in the cloud</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Web Dashboard</h3>
+                <p>Real-time visualization and control interface</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>ML Models</h3>
+                <p>Predictive analytics for crop management</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="section">
+        <h2>Live Dashboard</h2>
+        <p>Monitor your farm's key metrics in real-time</p>
+
+        <div class="dashboard-preview">
+            <div class="metric-card">
+                <div class="metric-label">Soil Moisture</div>
+                <div class="metric-value">68%</div>
+                <div style="color: #4CAF50;">✓ Optimal</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Temperature</div>
+                <div class="metric-value">24°C</div>
+                <div style="color: #4CAF50;">✓ Good</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Humidity</div>
+                <div class="metric-value">72%</div>
+                <div style="color: #4CAF50;">✓ Normal</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">NPK Levels</div>
+                <div class="metric-value">Good</div>
+                <div style="color: #4CAF50;">✓ Balanced</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+        <h2>Project Gallery</h2>
+        <p>Visual documentation of our precision farming implementations</p>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <h3>Organic Crops</h3>
+                <p>Healthy plants grown with organic methods</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3>IoT Sensors</h3>
+                <p>Deployed monitoring equipment in fields</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3>Control Systems</h3>
+                <p>Automated irrigation controllers</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p>Get in touch to learn more about implementing precision farming on your land</p>
+
+        <div class="feature-card" style="max-width: 600px; margin: 2rem auto;">
+            <h3>🌱 FarmIO Team</h3>
+            <p style="margin: 1rem 0;">
+                <strong>Email:</strong> info@farmio.com<br>
+                <strong>Phone:</strong> +1 (555) 123-4567<br>
+                <strong>Address:</strong> Agricultural Technology Center, Innovation Hub
+            </p>
+            <a href="mailto:info@farmio.com" class="btn">Send Email</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 FarmIO - Precision & Organic Farming Platform</p>
+        <p>Enhancing farmer livelihoods through sustainable agriculture</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Animate metrics
+        function animateMetrics() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                const text = metric.textContent;
+                if (text.includes('%') || text.includes('°C')) {
+                    const value = parseInt(text);
+                    if (!isNaN(value)) {
+                        let current = 0;
+                        const interval = setInterval(() => {
+                            if (current >= value) {
+                                clearInterval(interval);
+                            } else {
+                                current += Math.ceil(value / 20);
+                                metric.textContent = current + text.replace(/\d+/, '');
+                            }
+                        }, 50);
+                    }
+                }
+            });
+        }
+
+        // Trigger animation when scrolling to dashboard
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateMetrics();
+                    observer.disconnect();
+                }
+            });
+        });
+
+        const dashboard = document.getElementById('dashboard');
+        if (dashboard) {
+            observer.observe(dashboard);
+        }
+    </script>
+</body>
+</html>
+
