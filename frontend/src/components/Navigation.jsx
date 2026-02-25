@@ -4,6 +4,16 @@ import '../styles/Navigation.css';
 
 function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [searchActive, setSearchActive] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState('');
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchValue.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(searchValue)}`;
+      setSearchValue('');
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -12,6 +22,21 @@ function Navigation() {
           <span className="logo-icon">🌾</span>
           <span className="logo-text">FarmIO</span>
         </Link>
+
+        <div className="nav-search-container">
+          <form className={`nav-search ${searchActive ? 'active' : ''}`} onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              placeholder="Search precision farming..."
+              className="nav-search-input"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onFocus={() => setSearchActive(true)}
+              onBlur={() => setTimeout(() => setSearchActive(false), 200)}
+            />
+            <button type="submit" className="nav-search-btn">🔍</button>
+          </form>
+        </div>
 
         <button
           className="menu-toggle"
@@ -26,6 +51,7 @@ function Navigation() {
           <li><Link to="/technology">Technology</Link></li>
           <li><Link to="/dashboard">Dashboard</Link></li>
           <li><Link to="/gallery">Gallery</Link></li>
+          <li><Link to="/search" className="search-link">🔍 Search</Link></li>
           <li><Link to="/contact">Contact</Link></li>
         </ul>
       </div>

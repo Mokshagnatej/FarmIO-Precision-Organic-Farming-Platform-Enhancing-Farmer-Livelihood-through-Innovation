@@ -12,7 +12,6 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 // Project Data
 const projectData = {
@@ -275,6 +274,128 @@ app.post('/api/contact', (req, res) => {
 
 // Serve React app for all other routes
 app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
+});
+
+// Search API - Precision Farming Knowledge Base
+app.get('/api/search', (req, res) => {
+  const query = req.query.q ? req.query.q.toLowerCase() : '';
+  const category = req.query.category || 'all';
+
+  const knowledgeBase = [
+    {
+      id: 1,
+      title: "What is Precision Farming?",
+      category: "basics",
+      description: "Precision farming, also known as precision agriculture, is a management strategy that uses information technology (IT) and various items of equipment including GPS guidance, control systems, sensors, robotics, drones, and software.",
+      content: "Precision farming is an approach that gathers, processes and analyzes temporal, spatial and individual data, and combines it with other information, to support management decisions to improve resource use efficiency, productivity, quality, profitability and sustainability of agricultural production.",
+      tags: ["basics", "definition", "agriculture", "technology"]
+    },
+    {
+      id: 2,
+      title: "Types of Precision Farming",
+      category: "types",
+      description: "Major types include Variable Rate Application, Remote Sensing, GPS-Guided Farming, IoT Sensors, and Data Analytics",
+      content: "1) Variable Rate Application (VRA) - applying inputs at variable rates 2) Remote Sensing - using drones and satellites 3) GPS-Guided Farming - using GPS for navigation 4) IoT Sensors - deploying sensors 5) Data Analytics - using big data",
+      tags: ["types", "vra", "remote-sensing", "gps", "iot"]
+    },
+    {
+      id: 3,
+      title: "Benefits of Precision Farming",
+      category: "benefits",
+      description: "Key benefits include increased yields and reduced input costs",
+      content: "• 20-30% increase in crop yields • 30-40% reduction in water usage • 25-35% decrease in costs • Improved soil health • Better resource allocation • Enhanced profitability",
+      tags: ["benefits", "yield", "cost-reduction", "sustainability"]
+    },
+    {
+      id: 4,
+      title: "IoT Sensors in Farming",
+      category: "technology",
+      description: "Internet of Things sensors revolutionize farm monitoring capabilities with 24/7 real-time data",
+      content: "IoT sensors monitor: • Soil Moisture • Temperature • Humidity • Soil Nutrients • Light Intensity • Weather Data",
+      tags: ["iot", "sensors", "monitoring", "technology", "real-time"]
+    },
+    {
+      id: 5,
+      title: "Automated Irrigation Systems",
+      category: "technology",
+      description: "Smart irrigation optimizes water delivery based on real-time sensor data",
+      content: "Automated systems use sensor data to determine water requirements, adjust delivery, reduce waste by 30-40%, and integrate with weather forecasts",
+      tags: ["irrigation", "water-management", "automation", "efficiency"]
+    },
+    {
+      id: 6,
+      title: "Organic Farming Integration",
+      category: "sustainable",
+      description: "Combining precision tools with organic practices for sustainable agriculture",
+      content: "Integration strategies: Use sensors to optimize organic inputs, monitor soil health organically, implement integrated pest management, reduce chemical usage",
+      tags: ["organic", "sustainable", "environment", "health"]
+    },
+    {
+      id: 7,
+      title: "GPS and Mapping Technology",
+      category: "technology",
+      description: "Global Positioning System enables accurate field mapping and navigation",
+      content: "GPS applications: accurate field mapping, yield mapping, controlled traffic farming, precise input application, historical data collection, integrated with GIS",
+      tags: ["gps", "mapping", "navigation", "technology", "data"]
+    },
+    {
+      id: 8,
+      title: "Data Analytics and Decision Support",
+      category: "analytics",
+      description: "Advanced analytics transform raw farm data into actionable insights",
+      content: "Data analytics provide: predictive yield models, disease assessment, optimal timing, ROI analysis, pattern recognition, benchmarking",
+      tags: ["analytics", "data", "decision-support", "prediction"]
+    },
+    {
+      id: 9,
+      title: "Drone Technology in Agriculture",
+      category: "technology",
+      description: "Unmanned aerial vehicles provide valuable crop monitoring capabilities",
+      content: "Drone applications: multispectral imaging, thermal imaging, high-resolution mapping, spray application, crop counting, early detection",
+      tags: ["drones", "aerial-imaging", "monitoring", "technology"]
+    },
+    {
+      id: 10,
+      title: "Cost-Benefit Analysis",
+      category: "economics",
+      description: "Understanding the financial impact of precision farming investments with ROI of 2-4 years",
+      content: "ROI considerations: Initial investment $50K-150K, Payback 2-4 years, 20-30% additional revenue, $5K-20K annual water savings, $10K-40K fertilizer savings",
+      tags: ["economics", "cost-benefit", "roi", "investment"]
+    }
+  ];
+
+  let results = knowledgeBase;
+
+  // Filter by search query
+  if (query.trim()) {
+    results = results.filter(item =>
+      item.title.toLowerCase().includes(query) ||
+      item.description.toLowerCase().includes(query) ||
+      item.content.toLowerCase().includes(query) ||
+      item.tags.some(tag => tag.toLowerCase().includes(query))
+    );
+  }
+
+  // Filter by category
+  if (category !== 'all') {
+    results = results.filter(item => item.category === category);
+  }
+
+  res.json({
+    success: true,
+    query: query,
+    category: category,
+    resultsCount: results.length,
+    results: results
+  });
+});
+
+// Serve static files from frontend/dist
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
 });
 

@@ -8,6 +8,7 @@ import Technology from './pages/Technology';
 import Dashboard from './pages/Dashboard';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
+import Search from './pages/Search';
 import './App.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/technology" element={<Technology />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>

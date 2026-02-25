@@ -134,7 +134,39 @@ function Home() {
       <section className="cta">
         <h2>Ready to Transform Your Farm?</h2>
         <p>Join the precision farming revolution with FarmIO</p>
-        <Link to="/contact" className="btn btn-primary btn-large">Get Started</Link>
+        <div className="cta-buttons">
+          <Link to="/contact" className="btn btn-primary btn-large">Get Started</Link>
+          <Link to="/search" className="btn btn-secondary btn-large">📚 Explore Knowledge Base</Link>
+        </div>
+      </section>
+
+      {/* Knowledge Base Preview */}
+      <section className="knowledge-preview">
+        <h2>Precision Farming Knowledge Base</h2>
+        <p className="section-subtitle">Learn everything about precision farming, IoT sensors, organic integration, and sustainable practices</p>
+        <div className="knowledge-cards">
+          <div className="knowledge-card">
+            <span className="knowledge-icon">🔍</span>
+            <h3>Smart Search</h3>
+            <p>Find answers to questions about precision farming, types, benefits, and implementation</p>
+          </div>
+          <div className="knowledge-card">
+            <span className="knowledge-icon">📚</span>
+            <h3>Comprehensive Database</h3>
+            <p>20+ topics covering everything from basics to advanced analytics and challenges</p>
+          </div>
+          <div className="knowledge-card">
+            <span className="knowledge-icon">🏷️</span>
+            <h3>Tagged Content</h3>
+            <p>Browse by category or search by tags for quick access to relevant information</p>
+          </div>
+          <div className="knowledge-card">
+            <span className="knowledge-icon">💡</span>
+            <h3>Real Insights</h3>
+            <p>Get practical knowledge about ROI, implementation guides, and success stories</p>
+          </div>
+        </div>
+        <Link to="/search" className="btn btn-primary btn-large">Go to Knowledge Base →</Link>
       </section>
     </div>
   );
