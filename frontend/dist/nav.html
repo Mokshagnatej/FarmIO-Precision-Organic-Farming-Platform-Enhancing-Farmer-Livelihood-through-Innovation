@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmIO - Navigation Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .nav-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .nav-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .nav-card h3 {
+            color: #2C3E50;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .nav-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .nav-card .status {
+            display: inline-block;
+            background: #E8F5E9;
+            color: #27AE60;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .nav-card .status.dev {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .nav-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #4ECDC4, #45B7D1);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+            background: linear-gradient(135deg, #45B7D1, #4ECDC4);
+        }
+
+        .nav-link:active {
+            transform: translateY(0);
+        }
+
+        .nav-link.secondary {
+            background: white;
+            color: #4ECDC4;
+            border: 2px solid #4ECDC4;
+        }
+
+        .nav-link.secondary:hover {
+            background: #4ECDC4;
+            color: white;
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        .categories {
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .categories h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .quick-access {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: slideInUp 0.7s ease-out;
+        }
+
+        .quick-access h2 {
+            color: #2C3E50;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .quick-link {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #2C3E50;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-left: 4px solid #4ECDC4;
+            display: block;
+        }
+
+        .quick-link:hover {
+            background: linear-gradient(135deg, #4ECDC4, #45B7D1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 30px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 50px;
+            font-size: 0.95rem;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .nav-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nav-card {
+                padding: 25px;
+            }
+
+            .nav-icon {
+                font-size: 2.5rem;
+            }
+
+            .nav-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .quick-access {
+                padding: 25px;
+            }
+
+            .quick-access h2 {
+                font-size: 1.5rem;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+
+            .categories h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .nav-card {
+                padding: 20px;
+            }
+
+            .nav-icon {
+                font-size: 2rem;
+            }
+
+            .nav-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .nav-card p {
+                font-size: 0.85rem;
+            }
+
+            .nav-link {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .quick-access {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <div class="header">
+            <h1>🌾 FarmIO</h1>
+            <p>Precision & Organic Farming Platform</p>
+            <p style="font-size: 1rem; color: rgba(255, 255, 255, 0.8);">Complete Website Navigation Hub</p>
+        </div>
+
+        <div class="categories">
+            <h2>📍 Navigate Your Journey</h2>
+        </div>
+
+        <div class="nav-grid">
+            <div class="nav-card">
+                <span class="nav-icon">🏠</span>
+                <span class="status">Home</span>
+                <h3>Landing Page</h3>
+                <p>Welcome to FarmIO. Discover our platform's capabilities and get started with precision farming technology.</p>
+                <a href="landing.html" class="nav-link">Visit Page →</a>
+            </div>
+
+            <div class="nav-card">
+                <span class="nav-icon">ℹ️</span>
+                <span class="status">About</span>
+                <h3>About Us</h3>
+                <p>Learn about FarmIO's mission, vision, and the team behind precision & organic farming innovation.</p>
+                <a href="about.html" class="nav-link">Visit Page →</a>
+            </div>
+
+            <div class="nav-card">
+                <span class="nav-icon">🔬</span>
+                <span class="status">Technology</span>
+                <h3>Technology</h3>
+                <p>Explore cutting-edge IoT sensors, AI analytics, and real-time monitoring systems powering our platform.</p>
+                <a href="technology.html" class="nav-link">Visit Page →</a>
+            </div>
+
+            <div class="nav-card">
+                <span class="nav-icon">📊</span>
+                <span class="status">Dashboard</span>
+                <h3>IoT Dashboard</h3>
+                <p>Real-time monitoring of crop health, soil conditions, weather data, and predictive analytics in one place.</p>
+                <a href="dashboard.html" class="nav-link">Visit Page →</a>
+            </div>
+
+            <div class="nav-card">
+                <span class="nav-icon">🖼️</span>
+                <span class="status">Gallery</span>
+                <h3>Image Gallery</h3>
+                <p>Beautiful collection of farming success stories, landscapes, and crop showcase with interactive filtering.</p>
+                <a href="gallery.html" class="nav-link">Visit Page →</a>
+            </div>
+
+            <div class="nav-card">
+                <span class="nav-icon">📧</span>
+                <span class="status">Contact</span>
+                <h3>Get In Touch</h3>
+                <p>Have questions? Reach out to our support team. We're here to help with your farming needs.</p>
+                <a href="contact.html" class="nav-link">Visit Page →</a>
+            </div>
+
+            <div class="nav-card">
+                <span class="nav-icon">🔍</span>
+                <span class="status dev">Development</span>
+                <h3>Search Portal</h3>
+                <p>Advanced search and filtering system to explore farming resources, tips, and solutions.</p>
+                <a href="search.html" class="nav-link">Visit Page →</a>
+            </div>
+
+            <div class="nav-card">
+                <span class="nav-icon">📚</span>
+                <span class="status dev">Documentation</span>
+                <h3>Learn More</h3>
+                <p>Comprehensive guides, tutorials, and documentation for implementing precision farming techniques.</p>
+                <a href="#" class="nav-link secondary" onclick="alert('Documentation portal coming soon!'); return false;">Coming Soon →</a>
+            </div>
+        </div>
+
+        <div class="quick-access">
+            <h2>✨ Platform Features</h2>
+            <div class="quick-links">
+                <a href="dashboard.html" class="quick-link">📊 Real-time IoT Data</a>
+                <a href="gallery.html" class="quick-link">🖼️ Interactive Gallery</a>
+                <a href="technology.html" class="quick-link">🔬 Advanced Sensors</a>
+                <a href="about.html" class="quick-link">👥 Meet Our Team</a>
+                <a href="search.html" class="quick-link">🔍 Smart Search</a>
+                <a href="contact.html" class="quick-link">📞 Support Center</a>
+            </div>
+        </div>
+
+        <div class="quick-access">
+            <h2>🚀 Quick Start</h2>
+            <div style="color: #2C3E50; line-height: 1.8;">
+                <p><strong>Step 1:</strong> Visit the <a href="landing.html" style="color: #4ECDC4; text-decoration: none; font-weight: 600;">Landing Page</a> for an overview</p>
+                <p><strong>Step 2:</strong> Learn about us on the <a href="about.html" style="color: #4ECDC4; text-decoration: none; font-weight: 600;">About Page</a></p>
+                <p><strong>Step 3:</strong> Explore <a href="technology.html" style="color: #4ECDC4; text-decoration: none; font-weight: 600;">Technology Stack</a> and features</p>
+                <p><strong>Step 4:</strong> Check the live <a href="dashboard.html" style="color: #4ECDC4; text-decoration: none; font-weight: 600;">IoT Dashboard</a> for real data</p>
+                <p><strong>Step 5:</strong> View <a href="gallery.html" style="color: #4ECDC4; text-decoration: none; font-weight: 600;">Success Stories</a> in the gallery</p>
+                <p><strong>Step 6:</strong> <a href="contact.html" style="color: #4ECDC4; text-decoration: none; font-weight: 600;">Contact us</a> to get started</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>FarmIO v1.0.0</strong> | Production Ready | February 25, 2026</p>
+            <p>Enhancing Farmer Livelihood through Precision & Organic Farming Innovation</p>
+            <p style="margin-top: 20px; font-size: 0.85rem;">© 2026 FarmIO. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+
