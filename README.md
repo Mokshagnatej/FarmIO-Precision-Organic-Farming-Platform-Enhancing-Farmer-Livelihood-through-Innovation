@@ -270,11 +270,7 @@ Guidelines for contributing to the project:
 3. Commit changes with clear messages
 4. Submit pull requests
 
-## Support & Contact
-
-For inquiries about the FarmIO platform:
-- Email: info@farmio.com
-- Phone: +1 (555) 123-4567
+## Hosting
 - Website: http://localhost:5000
 
 ## License
